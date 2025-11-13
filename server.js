@@ -1,19 +1,16 @@
-// server.js
+// server.js  (COMMONJS SÜRÜMÜ)
 
-import express from "express";
-import http from "http";
-import cors from "cors";
-import { Server } from "socket.io";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
+const express = require("express");
+const http = require("http");
+const cors = require("cors");
+const { Server } = require("socket.io");
+const fs = require("fs");
+const path = require("path");
 
-// --- Dosya yolu ayarları (users.json için) ---
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// --- users.json için yol ayarı ---
 const USERS_FILE = path.join(__dirname, "users.json");
 
-// --- Kullanıcıları dosyadan oku / yaz ---
+// Kullanıcıları dosyadan oku
 function loadUsers() {
   try {
     const raw = fs.readFileSync(USERS_FILE, "utf8");
@@ -25,6 +22,7 @@ function loadUsers() {
   }
 }
 
+// Kullanıcıları dosyaya yaz
 function saveUsers(list) {
   try {
     fs.writeFileSync(USERS_FILE, JSON.stringify(list, null, 2), "utf8");
@@ -33,7 +31,7 @@ function saveUsers(list) {
   }
 }
 
-// Uygulama açılırken users.json'u yükle
+// Uygulama açılırken users.json yükle
 let users = loadUsers();
 
 const app = express();
@@ -82,7 +80,7 @@ app.post("/auth/signup", (req, res) => {
     id: Date.now(),
     username: trimmedName,
     email: trimmedEmail,
-    password, // gerçek projede şifre HASH'lenir
+    password, // gerçek projede HASH yapılır
     createdAt: new Date().toISOString(),
   };
 
@@ -126,7 +124,7 @@ const io = new Server(server, {
   },
 });
 
-// socket.id -> username
+// socket.id → username
 const onlineUsers = new Map();
 
 function broadcastOnlineUsers() {
