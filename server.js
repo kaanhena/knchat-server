@@ -1,55 +1,43 @@
-const express = require("express");
-const http = require("http");
-const cors = require("cors");
-const { Server } = require("socket.io");
+import express from "express";
+import http from "http";
+import { Server } from "socket.io";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 
-// CORS ayarı
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST"],
-  })
-);
+// Test için basit GET isteği
+app.get("/", (req, res) => {
+res.send("knchat socket server çalışıyor");
+});
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
+cors: {
+origin: "*",
+methods: ["GET", "POST"],
+},
 });
 
-// Basit sağlık testi
-app.get("/", (req, res) => {
-  res.send("knchat socket server çalışıyor");
-});
-
-// Bağlanan kullanıcıları dinle
+// Bağlanma
 io.on("connection", (socket) => {
-  console.log("Yeni kullanıcı bağlandı:", socket.id);
+console.log("Yeni kullanıcı bağlandı:", socket.id);
 
-  // Mesaj geldiğinde herkese yayınlama
-  socket.on("chatMessage", (data) => {
-    const message = {
-      id: Date.now(),
-      text: data.text || "",
-      user: data.user || "Anonim",
-      createdAt: new Date().toISOString(),
-    };
-
-    io.emit("chatMessage", message); // herkese gönder
-  });
-
-  socket.on("disconnect", () => {
-    console.log("Kullanıcı ayrıldı:", socket.id);
-  });
+// Mesaj geldiğinde herkese yay
+socket.on("chatMessage", (data) => {
+io.emit("chatMessage", data);
 });
 
+// Ayrılma
+socket.on("disconnect", () => {
+console.log("Kullanıcı ayrıldı:", socket.id);
+});
+});
+
+// Render’ın verdiği PORT'u kullanıyoruz
 const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => {
-  console.log(`knchat socket server ${PORT} portunda çalışıyor`);
+console.log(knchat socket server ${PORT} portunda çalışıyor);
 });
