@@ -1,43 +1,43 @@
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
-import cors from "cors";
+// server.js
+
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const cors = require("cors");
 
 const app = express();
 app.use(cors());
 
-// Test için basit GET isteği
+// Basit test endpoint’i
 app.get("/", (req, res) => {
-res.send("knchat socket server çalışıyor");
+  res.send("knchat socket server çalışıyor");
 });
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
-cors: {
-origin: "*",
-methods: ["GET", "POST"],
-},
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
 });
 
-// Bağlanma
 io.on("connection", (socket) => {
-console.log("Yeni kullanıcı bağlandı:", socket.id);
+  console.log("Yeni client bağlandı:", socket.id);
 
-// Mesaj geldiğinde herkese yay
-socket.on("chatMessage", (data) => {
-io.emit("chatMessage", data);
+  // İSTEDİĞİMİZ EVENT: "chatMessage"
+  socket.on("chatMessage", (msg) => {
+    console.log("Mesaj geldi:", msg);
+    // Tüm bağlı client’lara gönder (gönderen dahil)
+    io.emit("chatMessage", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Client ayrıldı:", socket.id);
+  });
 });
 
-// Ayrılma
-socket.on("disconnect", () => {
-console.log("Kullanıcı ayrıldı:", socket.id);
-});
-});
-
-// Render’ın verdiği PORT'u kullanıyoruz
 const PORT = process.env.PORT || 3001;
-
 server.listen(PORT, () => {
-console.log(knchat socket server ${PORT} portunda çalışıyor);
+  console.log(`knchat socket server ${PORT} portunda çalışıyor`);
 });
