@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1763190354428,
+    "email": "kaanhena46@gmail.com",
+    "username": "kaantest12",
+    "passwordHash": "$2b$10$e51naSBAA5NDF9FH0V4cCu.A6JF/kK2IxQRde4evnTwjbz16a22pe",
+    "verified": true,
+    "verifyCode": null,
+    "createdAt": "2025-11-15T07:05:54.428Z"
+  },
+  {
+    "id": 1763190983425,
+    "email": "kaanhena@gmail.com",
+    "username": "kaantest13",
+    "passwordHash": "$2b$10$fvlJUSG13KL9.QAApWZwo.o1evnHrb6cRWCQEDZge43U.4jLncoia",
+    "verified": true,
+    "verifyCode": null,
+    "createdAt": "2025-11-15T07:16:23.425Z"
+  },
+  {
+    "id": 1763225064457,
+    "email": "mysro102@gmail.com",
+    "username": "kaantest1212",
+    "passwordHash": "$2b$10$fSfgbuIk9V9XGMt9DYxKJuld0/n/58aDvMEvLF9AYfD.7A10ZVilW",
+    "verified": false,
+    "verifyCode": "186370",
+    "createdAt": "2025-11-15T16:44:24.457Z"
+  },
+  {
+    "id": 1763225295499,
+    "email": "05353302328a@gmail.com",
+    "username": "test12123",
+    "passwordHash": "$2b$10$xWhXh5ujZJOLtDlfHvj4ZOmmebQlUBzomrEovmiAZp/041hlvdZUW",
+    "verified": true,
+    "verifyCode": null,
+    "createdAt": "2025-11-15T16:48:15.499Z"
+  }
+]
