@@ -1,0 +1,3 @@
+<!doctype html><meta charset="utf-8"><title>image proxy test</title><pre id="out">loading</pre><script>
+(async()=>{const target='https://les.mitsubishielectric.co.uk/assets/Product/e89db12ed3/M-Series-MFZ-KJ-Floor-Mounted-Unit__FillWzYwMCw0MDBd.png';const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(target);try{const r=await fetch(proxy);document.getElementById('out').textContent='status='+r.status+' type='+r.headers.get('content-type')+'\n';const b=await r.blob();const fr=new FileReader();fr.onload=()=>{document.getElementById('out').textContent+=fr.result};fr.readAsDataURL(b)}catch(e){document.getElementById('out').textContent='ERROR '+e.stack}})();
+</script>
